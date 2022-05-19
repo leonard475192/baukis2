@@ -1,7 +1,7 @@
 class CreateStaffMembers < ActiveRecord::Migration[6.0]
   def change
     create_table :staff_members do |t|
-      t.string :email, null: false,                     # メールアドレス
+      t.string :email, null: false                      # メールアドレス
       t.string :family_name, null: false                # 姓
       t.string :given_name, null: false                 # 名
       t.string :family_name_kana, null: false           # 姓（カナ）
