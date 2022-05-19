@@ -1,3 +1,10 @@
 <header>
   <%= link_to "BAUKIS2", :staff_root, class: "logo-mark" %>
+  <%=
+    if current_staff_member
+      link_to "ログアウト", :staff_session, method: :delete
+    else
+      link_to "ログイン", :staff_login
+    end
+  %>
 </header>
