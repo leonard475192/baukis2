@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     namespace :staff, path:config[:staff][:path] do
       root 'top#index'
       get 'login' => 'sessions#new', as: :login
-      resources :session, only: [ :create, :destroy ]
+      # resources :session, only: [ :create, :destroy ] # ログアウトで、IDを渡す必要がある
+      post 'session' => 'sessions#create', as: :session
+      delete 'session' => 'sessions#destroy'
       resources :account, except: [ :new, :create, :destroy ]
     end
   end
@@ -15,7 +17,8 @@ Rails.application.routes.draw do
     namespace :admin, path:config[:admin][:path] do
       root 'top#index'
       get 'login' => 'sessions#new', as: :login
-      resources :session, only: [ :create, :destroy ]
+      post 'session' => 'sessions#create', as: :session
+      delete 'session' => 'sessions#destroy'
       resources :staff_members
     end
   end
