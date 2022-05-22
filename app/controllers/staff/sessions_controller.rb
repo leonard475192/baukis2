@@ -1,5 +1,5 @@
 class Staff::SessionsController < Staff::Base
-  skip_before_action :authorize
+  skip_before_action :authorize, :check_account
 
   def new
     if current_staff_member
@@ -21,6 +21,7 @@ class Staff::SessionsController < Staff::Base
         render action: 'new'
       else
         session[:staff_member_id] = staff_member.id
+        session[:last_access_time] = Time.current
         flash.notice = 'ログインしました'
         redirect_to :staff_root
       end

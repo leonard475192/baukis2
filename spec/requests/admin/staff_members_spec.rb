@@ -1,7 +1,21 @@
 require "rails_helper"
 
+RSpec.describe "Admin::StaffMembers", "before login", type: :request do
+  include_examples "a protrected admin controller", "admin/staff_members"
+end
+
 RSpec.describe "Admin::StaffMembers", type: :request do
   let(:administrator) { create(:administrator) }
+
+  before do
+    post admin_session_url,
+    params: {
+      admin_login_from: {
+        email: administrator.email,
+        password: "pw",
+      }
+    }
+  end
 
   describe "Create" do
     let(:params_hash) { attributes_for(:staff_member) }
@@ -28,7 +42,7 @@ RSpec.describe "Admin::StaffMembers", type: :request do
       expect(staff_member).to be_suspended
     end
 
-    example "hash_password cannot be rewritten." do
+    example "Hash_password cannot be rewritten." do
       params_hash.delete(:password)
       params_hash.merge!(hash_password: "x")
       expect {
