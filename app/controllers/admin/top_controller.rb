@@ -4,5 +4,6 @@ class Admin::TopController < Admin::Base
       render action: 'dashboard'
     else
       render action: 'index'
+    end
   end
 end
